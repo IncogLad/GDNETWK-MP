@@ -1,0 +1,43 @@
+﻿  Main.cpp
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(10,2): error C2065: 'pokemon': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(10,10): error C2146: syntax error: missing ';' before identifier 'player1'
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(10,10): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(10,19): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(12,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(15,2): error C3861: 'startUI': identifier not found
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(17,20): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(17,2): error C3861: 'pokemonSelect': identifier not found
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(18,20): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(18,2): error C3861: 'pokemonSelect': identifier not found
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(21,15): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(21,36): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(23,9): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(23,27): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(24,3): error C2065: 'cout': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(24,11): error C2065: 'endl': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(24,79): error C2065: 'endl': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(28,4): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(29,13): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(29,22): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(29,4): error C3861: 'battleUI': identifier not found
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(30,4): error C2065: 'cin': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(31,21): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(31,31): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(31,8): error C3861: 'resolveMove': identifier not found
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(35,4): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(36,13): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(36,22): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(36,4): error C3861: 'battleUI': identifier not found
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(37,4): error C2065: 'cin': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(38,21): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(38,31): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(38,8): error C3861: 'resolveMove': identifier not found
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(42,6): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(42,32): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(42,41): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(42,23): error C3861: 'gameOver': identifier not found
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(43,16): error C2065: 'player1': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(43,25): error C2065: 'player2': undeclared identifier
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(43,7): error C3861: 'gameOver': identifier not found
+  Pokemon.cpp
+  Generating Code...
