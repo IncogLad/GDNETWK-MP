@@ -47,4 +47,3 @@ private:
 	int chargeN = 5, protectN = 5;
 	bool chargeState = false, protectState = false;
 };
-
