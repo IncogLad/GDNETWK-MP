@@ -24,6 +24,8 @@ int __cdecl main(int argc, char** argv)
         * ptr = NULL,
         hints;
     const char* sendbuf = "this is a test";
+    int slen = sizeof(ConnectSocket);
+    char message[DEFAULT_BUFLEN];
     char recvbuf[DEFAULT_BUFLEN];
     int iResult;
     int recvbuflen = DEFAULT_BUFLEN;
@@ -96,16 +98,45 @@ int __cdecl main(int argc, char** argv)
     printf("Bytes Sent: %ld\n", iResult);
 
     // shutdown the connection since no more data will be sent
-    iResult = shutdown(ConnectSocket, SD_SEND);
+    /*iResult = shutdown(ConnectSocket, SD_SEND);
     if (iResult == SOCKET_ERROR) {
         printf("shutdown failed with error: %d\n", WSAGetLastError());
         closesocket(ConnectSocket);
         WSACleanup();
         return 1;
+    }*/
+
+    //setup address structure
+    memset((char*)&hints, 0, sizeof(hints));
+
+    //start communication
+    while (1)
+    {
+        printf("Enter message : ");
+        gets_s(message, recvbuflen);
+
+        //send the message
+        if (sendto(ConnectSocket, message, strlen(message), 0, &ConnectSocket, &slen) == SOCKET_ERROR)
+        {
+            printf("sendto() failed with error code : %d", WSAGetLastError());
+            exit(EXIT_FAILURE);
+        }
+
+        //receive a reply and print it
+        //clear the buffer by filling null, it might have previously received data
+        memset(recvbuf, '\0', recvbuflen);
+        //try to receive some data, this is a blocking call
+        if (recvfrom(ConnectSocket, recvbuf, recvbuflen, 0, &ConnectSocket, &slen) == SOCKET_ERROR)
+        {
+            printf("recvfrom() failed with error code : %d", WSAGetLastError());
+            exit(EXIT_FAILURE);
+        }
+
+        puts(recvbuf);
     }
 
     // Receive until the peer closes the connection
-    do {
+    /*do {
 
         iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
         if (iResult > 0)
@@ -115,7 +146,7 @@ int __cdecl main(int argc, char** argv)
         else
             printf("recv failed with error: %d\n", WSAGetLastError());
 
-    } while (iResult > 0);
+    } while (iResult > 0);*/
 
     // cleanup
     closesocket(ConnectSocket);

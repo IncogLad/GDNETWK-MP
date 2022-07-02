@@ -1,1 +1,2 @@
 C:\Users\Admin\source\repos\TCP_Client\Debug\TCP_Client.exe
+D:\C++ Projects\GDNETWK-MP\TCP_Client\Debug\TCP_Client.exe

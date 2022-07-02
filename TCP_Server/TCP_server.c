@@ -27,8 +27,12 @@ int __cdecl main(void)
     struct addrinfo hints;
 
     int iSendResult;
+    int slen, recv_len;
     char recvbuf[DEFAULT_BUFLEN];
+    char message[DEFAULT_BUFLEN];
     int recvbuflen = DEFAULT_BUFLEN;
+
+    
 
     // Initialize Winsock
     iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -92,8 +96,40 @@ int __cdecl main(void)
     // No longer need server socket
     closesocket(ListenSocket);
 
+    //setup memset for buffer null
+    memset((char*)&hints, 0, sizeof(hints));
+    slen = sizeof(ClientSocket);
+
+    //start communication
+    while (1)
+    {
+        printf("Waiting for data...");
+        fflush(stdout);
+
+        //clear the buffer by filling null, it might have previously received data
+        memset(recvbuf, '\0', recvbuflen);
+
+        //try to receive some data, this is a blocking call
+        if ((recv_len = recvfrom(ClientSocket, recvbuf, recvbuflen, 0, &ClientSocket, &slen)) == SOCKET_ERROR)
+        {
+            printf("recvfrom() failed with error code : %d", WSAGetLastError());
+            exit(EXIT_FAILURE);
+        }
+
+        //print details of the client/peer and the data received
+        //printf("Received packet from %s:%d\n", inet_ntoa(si_other.sin_addr), ntohs(si_other.sin_port));
+        printf("Data: %s\n", recvbuf);
+
+        //now reply the client with the same data
+        if (sendto(ClientSocket, recvbuf, recv_len, 0, &ClientSocket, slen) == SOCKET_ERROR)
+        {
+            printf("sendto() failed with error code : %d", WSAGetLastError());
+            exit(EXIT_FAILURE);
+        }
+    }
+
     // Receive until the peer shuts down the connection
-    do {
+    /*do {
 
         iResult = recv(ClientSocket, recvbuf, recvbuflen, 0);
         if (iResult > 0) {
@@ -118,7 +154,7 @@ int __cdecl main(void)
             return 1;
         }
 
-    } while (iResult > 0);
+    } while (iResult > 0);*/
 
     // shutdown the connection since we're done
     iResult = shutdown(ClientSocket, SD_SEND);
