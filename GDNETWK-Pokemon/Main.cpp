@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Pokemon.h"
 #include "UI.h"
+#include "Calculations.h"
 
 using namespace std;
 
@@ -28,17 +29,17 @@ int main() {
 			player1.setProtectState(false);
 			UI::BattleUI(player1, player2, maxhp1, maxhp2);
 			cin >> input;
-			if (resolveMove(&player1, &player2, input)) turn = 1;
+			if (Calculations::ResolveMove(player1, player2, input)) turn = 1;
 		}
 		else if (turn == 1) {
 
 			player2.setProtectState(false);
 			UI::BattleUI(player2, player1, maxhp2, maxhp1);
 			cin >> input;
-			if (resolveMove(&player2, &player1, input)) turn = 0;
+			if (Calculations::ResolveMove(player2, player1, input)) turn = 0;
 
 		}
-	}//Combat End
+	} //Combat End
 	if (player1.getHP() <= 0) UI::GameOver(player2, player1, maxhp2, maxhp1);
 	else UI::GameOver(player1, player2, maxhp1, maxhp2);
 }

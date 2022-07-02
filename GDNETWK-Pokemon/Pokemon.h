@@ -6,7 +6,6 @@ using namespace std;
 class Pokemon
 {
 public:
-	enum ElementalType { fire, water, grass, ground, ice, electric, none };
 	void GivePokemonData(int input);
 
 	// Getters for private variables
@@ -33,6 +32,8 @@ public:
 	void setProtectState(bool newState);
 
 private:
+	enum ElementalType { fire, water, grass, ground, ice, electric, none };
+
 	int id = 0;
 	string name;
 	int type[2];
