@@ -1,1 +1,2 @@
 D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Debug\GDNETWK-Pokemon.exe
+D:\C++ Projects\GDNETWK-MP\GDNETWK-Pokemon\Debug\GDNETWK-Pokemon.exe

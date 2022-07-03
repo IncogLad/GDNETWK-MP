@@ -50,6 +50,8 @@ void main()
 
 	// this will be changed by the \quit command (see below, bonus not in video!)
 	bool running = true; 
+	bool runningSelection = false;
+	bool runningGame = false;
 
 	while (running)
 	{
@@ -66,6 +68,7 @@ void main()
 		// SO MAKE A COPY OF THE MASTER LIST TO PASS INTO select() !!!
 
 		fd_set copy = master;
+		
 
 		// See who's talking to us
 		int socketCount = select(0, &copy, nullptr, nullptr, nullptr);
@@ -75,9 +78,9 @@ void main()
 		{
 			// Makes things easy for us doing this assignment
 			SOCKET sock = copy.fd_array[i];
-
+			
 			// Is it an inbound communication?
-			if (sock == listening)
+			if (sock == listening )
 			{
 				// Accept a new connection
 				SOCKET client = accept(listening, nullptr, nullptr);
@@ -86,17 +89,25 @@ void main()
 				FD_SET(client, &master);
 
 				// Send a welcome message to the connected client
-				string welcomeMsg = "Welcome to the Awesome Chat Server!\r\n";
-				send(client, welcomeMsg.c_str(), welcomeMsg.size() + 1, 0);
+				string pokemonMsg = "Pokemon Duel Simulator\n"
+					"Greetings Trainers! We are trying to develop a simulator in order to learn more about pokemon.\n"
+					"As of now we currently have 7 pokemon in the system with two different moves\nWe ask that two of you do a battle simulation with a pokemon of your choosing\n"
+					"The starting turn is determined randomly\n"
+					"\t[1] - Entei\t[4] - Pikachu\t[7] - Stunfisk\n"
+					"\t[2] - Milotic\t[5] - Groudon\n"
+					"\t[3] - Torterra\t[6] - Lapras\n\n";
+				send(client, pokemonMsg.c_str(), pokemonMsg.size() + 1, 0);
+				//string welcomeMsg = "Waiting for player to join...\r\n";
+				//send(client, welcomeMsg.c_str(), welcomeMsg.size() + 1, 0);
 			}
 			else // It's an inbound message
 			{
 				char buf[4096];
 				ZeroMemory(buf, 4096);
 				
-				// Receive message
+				// Makes things easy for us doing this assignment
 				int bytesIn = recv(sock, buf, 4096, 0);
-				if (bytesIn <= 0)
+				if (bytesIn <= 0) // if no msg receive
 				{
 					// Drop the client
 					closesocket(sock);
@@ -105,38 +116,96 @@ void main()
 				else
 				{
 					// Check to see if it's a command. \quit kills the server
-					if (buf[0] == '\\')
+					if (buf[0] == 'quit')
 					{
 						// Is the command quit? 
 						string cmd = string(buf, bytesIn);
 						if (cmd == "\\quit")
 						{
-							running = false;
+							exit(1);
 							break;
 						}
 
 						// Unknown command
 						continue;
 					}
+					if (buf[0] == '1') {
+						for (int i = 0; i < master.fd_count; i++)
+						{
+							SOCKET outSock = master.fd_array[i];
+							if (outSock != listening && outSock != sock)
+							{
+								ostringstream ss; // find a way to change player number
+								ss << "Player" << sock << " chosed Entei" << "\r\n";
+								string strOut = ss.str();
 
+								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
+							}
+						}
+					}
+					if (buf[0] == '2') {
+						for (int i = 0; i < master.fd_count; i++)
+						{
+							SOCKET outSock = master.fd_array[i];
+							if (outSock != listening && outSock != sock)
+							{
+								ostringstream ss; // find a way to change player number
+								ss << "Player" << sock << " chosed Milotic" << "\r\n";
+								string strOut = ss.str();
+
+								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
+							}
+						}
+					}
+				}
+				
+				// Receive message
+				/*
+				int bytesIn = recv(sock, buf, 4096, 0);
+				if (bytesIn <= 0) // if no msg receive
+				{
+					// Drop the client
+					closesocket(sock);
+					FD_CLR(sock, &master);
+				}
+				else 
+				{
+					// Check to see if it's a command. \quit kills the server
+					if (buf[0] == 'quit')
+					{
+						// Is the command quit? 
+						string cmd = string(buf, bytesIn);
+						if (cmd == "\\quit")
+						{
+							exit(1);
+							break;
+						}
+
+						// Unknown command
+						continue;
+					}
+					
 					// Send message to other clients, and definiately NOT the listening socket
-
+					/*
 					for (int i = 0; i < master.fd_count; i++)
 					{
 						SOCKET outSock = master.fd_array[i];
 						if (outSock != listening && outSock != sock)
 						{
-							ostringstream ss;
-							ss << "SOCKET #" << sock << ": " << buf << "\r\n";
+							ostringstream ss; // find a way to change player number
+							ss << "Player" << sock << ": " << buf << "\r\n";
 							string strOut = ss.str();
 
 							send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 						}
 					}
-				}
+					
+				}*/
 			}
 		}
 	}
+
+	
 
 	// Remove the listening socket from the master file descriptor set and close it
 	// to prevent anyone else trying to connect.
@@ -162,5 +231,5 @@ void main()
 	// Cleanup winsock
 	WSACleanup();
 
-	system("pause");
+	//system("pause");
 }

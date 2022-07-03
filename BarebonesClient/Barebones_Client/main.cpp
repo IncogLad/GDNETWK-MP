@@ -51,6 +51,14 @@ void main()
 
 	do
 	{
+		ZeroMemory(buf, 4096);
+		int bytesReceived = recv(sock, buf, 4096, 0);
+		if (bytesReceived > 0)
+		{
+			// Echo response to console
+			cout << "SERVER> " << string(buf, 0, bytesReceived) << endl;
+		}
+
 		// Prompt the user for some text
 		cout << "> ";
 		getline(cin, userInput);
@@ -77,4 +85,5 @@ void main()
 	// Gracefully close down everything
 	closesocket(sock);
 	WSACleanup();
+
 }
