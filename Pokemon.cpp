@@ -308,7 +308,7 @@ bool resolveMove(pokemon *currPlayer, pokemon *opponent, int move){
 		case 1:
 		case 2:
 			if (opponent->protectState == true) cout << "Your damage was prevented!" << endl;
-			else opponent->hp -= dmgCalculation(*currPlayer, *opponent, move);
+			else opponent->hp -= dmgCalculation(*currPlayer, *opponent, move-1);
 
 			currPlayer->moveTP[move]--;
 			break;

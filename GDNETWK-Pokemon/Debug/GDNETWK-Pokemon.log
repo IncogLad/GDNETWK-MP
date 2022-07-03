@@ -1,0 +1,11 @@
+﻿  Main.cpp
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Main.cpp(12,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Pokemon.cpp
+  UI.cpp
+  Generating Code...
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Pokemon.cpp(164): warning C4715: 'Pokemon::getType': not all control paths return a value
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Pokemon.cpp(208): warning C4715: 'Pokemon::getMoveTP': not all control paths return a value
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Pokemon.cpp(195): warning C4715: 'Pokemon::getMoveDMG': not all control paths return a value
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Pokemon.cpp(182): warning C4715: 'Pokemon::getMoveName': not all control paths return a value
+D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Pokemon.cpp(221): warning C4715: 'Pokemon::getMoveType': not all control paths return a value
+  GDNETWK-Pokemon.vcxproj -> D:\Apps\Github\GDNETWK-MP\GDNETWK-Pokemon\Debug\GDNETWK-Pokemon.exe
