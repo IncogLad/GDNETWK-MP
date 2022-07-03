@@ -17,7 +17,7 @@ void UI::PokemonList()
 	cout << "\t[3] - Torterra\t[6] - Lapras" << endl << endl;
 }
 
-void UI::PokemonSelect(int player, Pokemon pokemon)
+void UI::PokemonSelect(int player, Pokemon &pokemon)
 {
 	int input;
 
@@ -38,7 +38,7 @@ void UI::BattleUI(Pokemon currPlayer, Pokemon opponent, int playerMaxHP, int opp
 
 	cout << endl << "What will " << currPlayer.getName() << " do?" << endl;;
 	for (int i = 0; i < 2; i++) {
-		cout << "[" << i + 1 << "] " << currPlayer.getMoveName(i) << "\t" << currPlayer.getMoveTP(i) << " pp" << endl;
+		cout << "[" << i + 1 << "] " << currPlayer.getMoveName(i) << "\t" << currPlayer.getMoveTP(i) << "pp" << endl;
 	}
 	cout << "[3] Protect\t" << currPlayer.getProtectNum() << "pp" << endl;
 	cout << "[4] Charge\t" << currPlayer.getChargeNum() << "pp" << endl;

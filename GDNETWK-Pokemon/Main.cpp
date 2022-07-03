@@ -20,7 +20,7 @@ int main() {
 
 	int input;
 	int maxhp1 = player1.getHP(), maxhp2 = player2.getHP();
-
+	
 	while (player1.getHP() > 0 && player2.getHP() > 0) {
 		cout << endl << " = = = = = Player " << turn + 1 << "'s turn = = = = = " << endl;
 

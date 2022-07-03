@@ -1,6 +1,6 @@
 #include "Calculations.h"
 
-bool Calculations::ResolveMove(Pokemon currPlayer, Pokemon opponent, int move)
+bool Calculations::ResolveMove(Pokemon &currPlayer, Pokemon &opponent, int move)
 {
 	switch (move) {
 		case 1:

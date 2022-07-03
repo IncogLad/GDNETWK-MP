@@ -7,7 +7,7 @@ using namespace std;
 class Calculations
 {
 public:
-	bool static ResolveMove(Pokemon currPlayer, Pokemon opponent, int move);
+	bool static ResolveMove(Pokemon &currPlayer, Pokemon &opponent, int move);
 
 private:
 	enum ElementalType { fire, water, grass, ground, ice, electric, none };

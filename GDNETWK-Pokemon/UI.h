@@ -8,7 +8,7 @@ class UI
 {
 public:
 	void static StartUI();
-	void static PokemonSelect(int player, Pokemon pokemon);
+	void static PokemonSelect(int player, Pokemon &pokemon);
 	void static BattleUI(Pokemon currPlayer, Pokemon opponent, int playerMaxHP, int opponentMaxHP);
 	void static GameOver(Pokemon winner, Pokemon loser, int maxhp1, int maxhp2);
 
