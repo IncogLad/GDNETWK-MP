@@ -52,6 +52,7 @@ void main()
 	bool running = true; 
 	bool runningSelection = false;
 	bool runningGame = false;
+	string name[2];
 
 	while (running)
 	{
@@ -80,7 +81,7 @@ void main()
 			SOCKET sock = copy.fd_array[i];
 			
 			// Is it an inbound communication?
-			if (sock == listening )
+			if (sock == listening)
 			{
 				// Accept a new connection
 				SOCKET client = accept(listening, nullptr, nullptr);
@@ -116,7 +117,7 @@ void main()
 				else
 				{
 					// Check to see if it's a command. \quit kills the server
-					if (buf[0] == 'quit')
+					if (buf[0] == '\\')
 					{
 						// Is the command quit? 
 						string cmd = string(buf, bytesIn);
@@ -129,10 +130,11 @@ void main()
 						// Unknown command
 						continue;
 					}
-					if (buf[0] == '1') {
-						for (int i = 0; i < master.fd_count; i++)
-						{
-							SOCKET outSock = master.fd_array[i];
+					for (int i = 0; i < master.fd_count; i++)
+					{
+						SOCKET outSock = master.fd_array[i];
+						if (buf[0] == '1') {
+								
 							if (outSock != listening && outSock != sock)
 							{
 								ostringstream ss; // find a way to change player number
@@ -142,11 +144,8 @@ void main()
 								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 							}
 						}
-					}
-					if (buf[0] == '2') {
-						for (int i = 0; i < master.fd_count; i++)
-						{
-							SOCKET outSock = master.fd_array[i];
+						if (buf[0] == '2') {
+
 							if (outSock != listening && outSock != sock)
 							{
 								ostringstream ss; // find a way to change player number

@@ -48,17 +48,21 @@ void main()
 	// Do-while loop to send and receive data
 	char buf[4096];
 	string userInput;
+	bool once = false;
 
 	do
 	{
-		ZeroMemory(buf, 4096);
-		int bytesReceived = recv(sock, buf, 4096, 0);
-		if (bytesReceived > 0)
-		{
-			// Echo response to console
-			cout << "SERVER> " << string(buf, 0, bytesReceived) << endl;
+		if (!once) {
+			ZeroMemory(buf, 4096);
+			int bytesReceived = recv(sock, buf, 4096, 0);
+			if (bytesReceived > 0)
+			{
+				// Echo response to console
+				cout << "SERVER> " << string(buf, 0, bytesReceived) << endl;
+			}
+			once = true;
 		}
-
+		
 		// Prompt the user for some text
 		cout << "> ";
 		getline(cin, userInput);
