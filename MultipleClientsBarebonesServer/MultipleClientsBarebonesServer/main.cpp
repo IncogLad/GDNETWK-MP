@@ -7,6 +7,20 @@
 
 using namespace std;
 
+int assignClientID(string name, string* clientID1, string* clientID2) {
+	if (*clientID1 == "\n") {
+		*clientID1 = name;
+		return 1;
+	}
+	else if (*clientID2 == "\n") {
+		*clientID2 = name;
+		return 2;
+	}
+	else {
+		return 0;
+	}
+}
+
 void main()
 {
 	// Initialze winsock
@@ -52,7 +66,9 @@ void main()
 	bool running = true; 
 	bool runningSelection = false;
 	bool runningGame = false;
-	string name[2];
+	string ClientID1 = "\n";
+	string ClientID2 = "\n";
+	bool showOnce = true;
 
 	while (running)
 	{
@@ -90,21 +106,19 @@ void main()
 				FD_SET(client, &master);
 
 				// Send a welcome message to the connected client
-				string pokemonMsg = "Pokemon Duel Simulator\n"
-					"Greetings Trainers! We are trying to develop a simulator in order to learn more about pokemon.\n"
-					"As of now we currently have 7 pokemon in the system with two different moves\nWe ask that two of you do a battle simulation with a pokemon of your choosing\n"
-					"The starting turn is determined randomly\n"
-					"\t[1] - Entei\t[4] - Pikachu\t[7] - Stunfisk\n"
-					"\t[2] - Milotic\t[5] - Groudon\n"
-					"\t[3] - Torterra\t[6] - Lapras\n\n";
-				send(client, pokemonMsg.c_str(), pokemonMsg.size() + 1, 0);
-				//string welcomeMsg = "Waiting for player to join...\r\n";
-				//send(client, welcomeMsg.c_str(), welcomeMsg.size() + 1, 0);
+				string Msg = "Welcome to Rock Paper Scissors!\n"
+					"Enter an input: Rock, Paper, or Scissors? \n";
+				send(client, Msg.c_str(), Msg.size() + 1, 0);
+
+				
 			}
 			else // It's an inbound message
 			{
 				char buf[4096];
 				ZeroMemory(buf, 4096);
+
+				char resultBuf[4096];
+				recv(sock, resultBuf, 4096, 0);
 				
 				// Makes things easy for us doing this assignment
 				int bytesIn = recv(sock, buf, 4096, 0);
@@ -130,27 +144,90 @@ void main()
 						// Unknown command
 						continue;
 					}
+					
 					for (int i = 0; i < master.fd_count; i++)
 					{
 						SOCKET outSock = master.fd_array[i];
-						if (buf[0] == '1') {
-								
+						string test;
+
+							if (buf[0] == 'r' || buf[0] == 'R') {
+								test = "You picked Rock!\n";
+							}
+							else if (buf[0] == 'p' || buf[0] == 'P') {
+								test = "You picked Paper!\n";
+							}
+							else if (buf[0] == 's' || buf[0] == 'S') {
+								test = "You picked Scissors!\n";
+							}
+
+
+						ostringstream ss;
+						ss << "Player" << outSock; //current client = outsock; other client = sock
+						string name1 = ss.str();
+						ClientID1 = name1;
+						ss << "Player" << sock; //current client = outsock; other client = sock
+						string name2 = ss.str();
+						ClientID2 = name2;
+
+						if (buf[0] == 'r' || buf[0] == 'R') {
+							name1 = "Your PlayerID is " + ClientID1 + "\n";
+							
 							if (outSock != listening && outSock != sock)
 							{
-								ostringstream ss; // find a way to change player number
-								ss << "Player" << sock << " chosed Entei" << "\r\n";
-								string strOut = ss.str();
+
+								ostringstream ss2;
+								ss2 << "Player" << sock << " picked Rock!" << "\r\n";
+								string strOut = ss2.str();
+								
+								strOut = name1 + test + strOut;
 
 								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 							}
 						}
-						if (buf[0] == '2') {
-
+						if (buf[0] == 'p' || buf[0] == 'P') {
+							name1 = "Your PlayerID is " + ClientID1 + "\n";
 							if (outSock != listening && outSock != sock)
 							{
-								ostringstream ss; // find a way to change player number
-								ss << "Player" << sock << " chosed Milotic" << "\r\n";
-								string strOut = ss.str();
+								/*
+								ostringstream ss;
+								ss << "Player" << outSock; //current client = outsock; other client = sock
+								string name1 = ss.str();
+								ClientID1 = name1;
+								ss << "Player" << sock; //current client = outsock; other client = sock
+								string name2 = ss.str();
+								ClientID2 = name2;
+
+								name1 = "Your PlayerID is " + ClientID1 + "\n";
+								*/
+								ostringstream ss2;
+								ss2 << "Player" << sock << " picked Paper!" << "\r\n";
+								string strOut = ss2.str();
+
+								strOut = name1 + test + strOut;
+
+								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
+							}
+						}
+						if (buf[0] == 's' || buf[0] == 'S') {
+							name1 = "Your PlayerID is " + ClientID1 + "\n";
+							if (outSock != listening && outSock != sock)
+							{	
+								/*
+								ostringstream ss;
+								ss << "Player" << outSock; //current client = outsock; other client = sock
+								string name1 = ss.str();
+								ClientID1 = name1;
+								ss << "Player" << sock; //current client = outsock; other client = sock
+								string name2 = ss.str();
+								ClientID2 = name2;
+
+								name1 = "Your PlayerID is " + ClientID1 + "\n";
+								*/
+								ostringstream ss2;
+								ss2 << "Player" << sock << " picked Scissors!" << "\r\n";
+								string strOut = ss2.str();
+
+								strOut = name1 + test + strOut;
 
 								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 							}
