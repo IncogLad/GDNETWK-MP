@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 
+
 #pragma comment (lib, "ws2_32.lib")
 
 using namespace std;
@@ -64,8 +65,6 @@ void main()
 
 	// this will be changed by the \quit command (see below, bonus not in video!)
 	bool running = true; 
-	bool runningSelection = false;
-	bool runningGame = false;
 	string ClientID1 = "\n";
 	string ClientID2 = "\n";
 	bool showOnce = true;
@@ -85,7 +84,6 @@ void main()
 		// SO MAKE A COPY OF THE MASTER LIST TO PASS INTO select() !!!
 
 		fd_set copy = master;
-		
 
 		// See who's talking to us
 		int socketCount = select(0, &copy, nullptr, nullptr, nullptr);
@@ -101,7 +99,7 @@ void main()
 			{
 				// Accept a new connection
 				SOCKET client = accept(listening, nullptr, nullptr);
-
+				
 				// Add the new connection to the list of connected clients
 				FD_SET(client, &master);
 
@@ -116,9 +114,6 @@ void main()
 			{
 				char buf[4096];
 				ZeroMemory(buf, 4096);
-
-				char resultBuf[4096];
-				recv(sock, resultBuf, 4096, 0);
 				
 				// Makes things easy for us doing this assignment
 				int bytesIn = recv(sock, buf, 4096, 0);
@@ -148,18 +143,6 @@ void main()
 					for (int i = 0; i < master.fd_count; i++)
 					{
 						SOCKET outSock = master.fd_array[i];
-						string test;
-
-							if (buf[0] == 'r' || buf[0] == 'R') {
-								test = "You picked Rock!\n";
-							}
-							else if (buf[0] == 'p' || buf[0] == 'P') {
-								test = "You picked Paper!\n";
-							}
-							else if (buf[0] == 's' || buf[0] == 'S') {
-								test = "You picked Scissors!\n";
-							}
-
 
 						ostringstream ss;
 						ss << "Player" << outSock; //current client = outsock; other client = sock
@@ -174,109 +157,56 @@ void main()
 							
 							if (outSock != listening && outSock != sock)
 							{
-
 								ostringstream ss2;
 								ss2 << "Player" << sock << " picked Rock!" << "\r\n";
 								string strOut = ss2.str();
 								
-								strOut = name1 + test + strOut;
+								strOut = name1 + strOut;
 
 								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 							}
 						}
-						if (buf[0] == 'p' || buf[0] == 'P') {
+						else if (buf[0] == 'p' || buf[0] == 'P') {
 							name1 = "Your PlayerID is " + ClientID1 + "\n";
 							if (outSock != listening && outSock != sock)
 							{
-								/*
-								ostringstream ss;
-								ss << "Player" << outSock; //current client = outsock; other client = sock
-								string name1 = ss.str();
-								ClientID1 = name1;
-								ss << "Player" << sock; //current client = outsock; other client = sock
-								string name2 = ss.str();
-								ClientID2 = name2;
-
-								name1 = "Your PlayerID is " + ClientID1 + "\n";
-								*/
 								ostringstream ss2;
 								ss2 << "Player" << sock << " picked Paper!" << "\r\n";
 								string strOut = ss2.str();
 
-								strOut = name1 + test + strOut;
+								strOut = name1 + strOut;
 
 								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 							}
 						}
-						if (buf[0] == 's' || buf[0] == 'S') {
+						else if (buf[0] == 's' || buf[0] == 'S') {
 							name1 = "Your PlayerID is " + ClientID1 + "\n";
 							if (outSock != listening && outSock != sock)
 							{	
-								/*
-								ostringstream ss;
-								ss << "Player" << outSock; //current client = outsock; other client = sock
-								string name1 = ss.str();
-								ClientID1 = name1;
-								ss << "Player" << sock; //current client = outsock; other client = sock
-								string name2 = ss.str();
-								ClientID2 = name2;
-
-								name1 = "Your PlayerID is " + ClientID1 + "\n";
-								*/
 								ostringstream ss2;
 								ss2 << "Player" << sock << " picked Scissors!" << "\r\n";
 								string strOut = ss2.str();
 
-								strOut = name1 + test + strOut;
+								strOut = name1 + strOut;
 
 								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
 							}
 						}
+						else {
+							name1 = "Your PlayerID is " + ClientID1 + "\n";
+							if (outSock != listening && outSock != sock)
+							{
+								ostringstream ss2;
+								ss2 << "Player" << sock << " had an Invalid Input" << "\r\n";
+								string strOut = ss2.str();
+
+								strOut = name1 + strOut;
+								send(outSock, strOut.c_str(), strOut.size() + 1, 0);
+							}
+						}
+						
 					}
 				}
-				
-				// Receive message
-				/*
-				int bytesIn = recv(sock, buf, 4096, 0);
-				if (bytesIn <= 0) // if no msg receive
-				{
-					// Drop the client
-					closesocket(sock);
-					FD_CLR(sock, &master);
-				}
-				else 
-				{
-					// Check to see if it's a command. \quit kills the server
-					if (buf[0] == 'quit')
-					{
-						// Is the command quit? 
-						string cmd = string(buf, bytesIn);
-						if (cmd == "\\quit")
-						{
-							exit(1);
-							break;
-						}
-
-						// Unknown command
-						continue;
-					}
-					
-					// Send message to other clients, and definiately NOT the listening socket
-					/*
-					for (int i = 0; i < master.fd_count; i++)
-					{
-						SOCKET outSock = master.fd_array[i];
-						if (outSock != listening && outSock != sock)
-						{
-							ostringstream ss; // find a way to change player number
-							ss << "Player" << sock << ": " << buf << "\r\n";
-							string strOut = ss.str();
-
-							send(outSock, strOut.c_str(), strOut.size() + 1, 0);
-						}
-					}
-					
-				}*/
 			}
 		}
 	}

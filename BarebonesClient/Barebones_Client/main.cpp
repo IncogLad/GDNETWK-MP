@@ -49,6 +49,7 @@ void main()
 	char buf[4096];
 	string userInput;
 	bool once = false;
+	int points = 0;
 
 	do
 	{
@@ -80,6 +81,58 @@ void main()
 				{
 					// Echo response to console
 					cout << "SERVER> " << string(buf, 0, bytesReceived) << endl;
+					// rock picked
+					if (buf[44] == 'R' && (userInput == "r" || userInput == "R")) {
+						cout << "SERVER> It's a draw" << endl;
+						cout << "You have " << points << " Points" << endl << endl;
+					}
+					else if (buf[44] == 'S' && (userInput == "r" || userInput == "R")) {
+						cout << "SERVER> You Win! +1 Point" << endl;
+						points++;
+						cout << "You have " << points << " Points" << endl << endl;
+					}
+					else if (buf[44] == 'P' && (userInput == "r" || userInput == "R")) {
+						cout << "SERVER> You Lose!" << endl;
+						cout << "You have " << points << " Points" << endl << endl;
+					}
+					// paper picked
+					else if (buf[44] == 'P' && (userInput == "p" || userInput == "P")) {
+						cout << "SERVER> It's a draw" << endl;
+						cout << "You have " << points << " Points" << endl << endl;
+					}
+					else if (buf[44] == 'R' && (userInput == "p" || userInput == "P")) {
+						cout << "SERVER> You Win! +1 Point" << endl;
+						points++;
+						cout << "You have " << points << " Points" << endl << endl;
+					}
+					else if (buf[44] == 'S' && (userInput == "p" || userInput == "P")) {
+						cout << "SERVER> You Lose!" << endl;
+						cout << "You have " << points << " Points" << endl << endl;
+					}
+					// scissors picked 
+					else if (buf[44] == 'S' && (userInput == "s" || userInput == "S")) {
+						cout << "SERVER> It's a draw" << endl;
+						cout << "You have " << points << " Points" << endl << endl;
+					}
+					else if (buf[44] == 'P' && (userInput == "s" || userInput == "S")) {
+						cout << "SERVER> You Win! +1 Point" << endl;
+						points++;
+						cout << "You have " << points << " Points" << endl << endl;
+					}
+					else if (buf[44] == 'R' && (userInput == "s" || userInput == "S")) {
+						cout << "SERVER> You Lose!" << endl;
+						cout << "You have " << points << " Points" << endl << endl;
+					}
+					else {
+						cout << "SERVER> Nothing happened..." << endl;
+						cout << "You have " << points << " Points" << endl;
+					}
+				}
+				if (points == 3) {
+					cout << "SERVER> You Win the Whole Game!" << endl;
+					system("pause");
+					closesocket(sock);
+					WSACleanup();
 				}
 			}
 		}
