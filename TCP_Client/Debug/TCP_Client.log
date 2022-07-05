@@ -1,6 +1,0 @@
-﻿  TCP_client.c
-D:\C++ Projects\GDNETWK-MP\TCP_Client\TCP_client.c(119,78): warning C4133: 'function': incompatible types - from 'SOCKET *' to 'const sockaddr *'
-D:\C++ Projects\GDNETWK-MP\TCP_Client\TCP_client.c(119,85): warning C4047: 'function': 'int' differs in levels of indirection from 'int *'
-D:\C++ Projects\GDNETWK-MP\TCP_Client\TCP_client.c(119,80): warning C4024: 'sendto': different types for formal and actual parameter 6
-D:\C++ Projects\GDNETWK-MP\TCP_Client\TCP_client.c(129,75): warning C4133: 'function': incompatible types - from 'SOCKET *' to 'sockaddr *'
-  TCP_Client.vcxproj -> D:\C++ Projects\GDNETWK-MP\TCP_Client\Debug\TCP_Client.exe

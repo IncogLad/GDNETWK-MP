@@ -1,2 +1,0 @@
-C:\Users\vince\source\repos\UDPClient\Debug\UDPClient.exe
-D:\C++ Projects\GDNETWK-MP\UDPClient\Debug\UDPClient.exe

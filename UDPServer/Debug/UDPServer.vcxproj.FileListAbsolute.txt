@@ -1,2 +1,0 @@
-C:\Users\vince\source\repos\UDPServer\Debug\UDPServer.exe
-D:\C++ Projects\GDNETWK-MP\UDPServer\Debug\UDPServer.exe
