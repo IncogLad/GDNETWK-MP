@@ -2,25 +2,9 @@
 #include <WS2tcpip.h>
 #include <string>
 #include <sstream>
-
-
 #pragma comment (lib, "ws2_32.lib")
 
 using namespace std;
-
-int assignClientID(string name, string* clientID1, string* clientID2) {
-	if (*clientID1 == "\n") {
-		*clientID1 = name;
-		return 1;
-	}
-	else if (*clientID2 == "\n") {
-		*clientID2 = name;
-		return 2;
-	}
-	else {
-		return 0;
-	}
-}
 
 void main()
 {
@@ -47,7 +31,7 @@ void main()
 	sockaddr_in hint;
 	hint.sin_family = AF_INET;
 	hint.sin_port = htons(54000);
-	hint.sin_addr.S_un.S_addr = INADDR_ANY; // Could also use inet_pton .... 
+	hint.sin_addr.S_un.S_addr = INADDR_ANY; 
 	
 	bind(listening, (sockaddr*)&hint, sizeof(hint));
 
@@ -55,15 +39,15 @@ void main()
 	listen(listening, SOMAXCONN);
 
 	// Create the master file descriptor set and zero it
+	// the main variable for handling one thread client server
 	fd_set master;
 	FD_ZERO(&master);
 
-	// Add our first socket that we're interested in interacting with; the listening socket!
-	// It's important that this socket is added for our server or else we won't 'hear' incoming
-	// connections 
+	// Add our first socket that we're interested in interacting with; 
+	// the listening socket to hear incoming connections 
 	FD_SET(listening, &master);
 
-	// this will be changed by the \quit command (see below, bonus not in video!)
+	//assign variables for the loop
 	bool running = true; 
 	string ClientID1 = "\n";
 	string ClientID2 = "\n";
@@ -71,21 +55,9 @@ void main()
 
 	while (running)
 	{
-		// Make a copy of the master file descriptor set, this is SUPER important because
-		// the call to select() is _DESTRUCTIVE_. The copy only contains the sockets that
-		// are accepting inbound connection requests OR messages. 
-
-		// E.g. You have a server and it's master file descriptor set contains 5 items;
-		// the listening socket and four clients. When you pass this set into select(), 
-		// only the sockets that are interacting with the server are returned. Let's say
-		// only one client is sending a message at that time. The contents of 'copy' will
-		// be one socket. You will have LOST all the other sockets.
-
-		// SO MAKE A COPY OF THE MASTER LIST TO PASS INTO select() !!!
-
 		fd_set copy = master;
 
-		// See who's talking to us
+		// initialize socket count to be looped
 		int socketCount = select(0, &copy, nullptr, nullptr, nullptr);
 
 		// Loop through all the current connections / potential connect
@@ -107,7 +79,6 @@ void main()
 				string Msg = "Welcome to Rock Paper Scissors!\n"
 					"Enter an input: Rock, Paper, or Scissors? \n";
 				send(client, Msg.c_str(), Msg.size() + 1, 0);
-
 				
 			}
 			else // It's an inbound message
@@ -135,11 +106,11 @@ void main()
 							exit(1);
 							break;
 						}
-
 						// Unknown command
 						continue;
 					}
 					
+					// main loop for checking the logic of client inputs
 					for (int i = 0; i < master.fd_count; i++)
 					{
 						SOCKET outSock = master.fd_array[i];

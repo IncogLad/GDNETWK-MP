@@ -29,7 +29,7 @@ void main()
 		return;
 	}
 
-	// Fill in a hint structure
+	// Fill in a hint structure, which contains the adress and port
 	sockaddr_in hint;
 	hint.sin_family = AF_INET;
 	hint.sin_port = htons(port);
@@ -58,7 +58,7 @@ void main()
 			int bytesReceived = recv(sock, buf, 4096, 0);
 			if (bytesReceived > 0)
 			{
-				// Echo response to console
+				// print out initial msg from server
 				cout << "SERVER> " << string(buf, 0, bytesReceived) << endl;
 			}
 			once = true;
@@ -68,9 +68,8 @@ void main()
 		cout << "> ";
 		getline(cin, userInput);
 
-		if (userInput.size() > 0)		// Make sure the user has typed in something
+		if (userInput.size() > 0) 
 		{
-			// Send the text
 			int sendResult = send(sock, userInput.c_str(), userInput.size() + 1, 0);
 			if (sendResult != SOCKET_ERROR)
 			{
@@ -79,8 +78,10 @@ void main()
 				int bytesReceived = recv(sock, buf, 4096, 0);
 				if (bytesReceived > 0)
 				{
-					// Echo response to console
+					// Print out server response to client console
 					cout << "SERVER> " << string(buf, 0, bytesReceived) << endl;
+
+					// game result and logic from the client and server data
 					// rock picked
 					if (buf[44] == 'R' && (userInput == "r" || userInput == "R")) {
 						cout << "SERVER> It's a draw" << endl;
