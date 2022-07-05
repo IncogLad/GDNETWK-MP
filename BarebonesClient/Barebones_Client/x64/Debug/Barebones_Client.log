@@ -1,0 +1,3 @@
+﻿  main.cpp
+D:\C++ Projects\GDNETWK-MP\BarebonesClient\Barebones_Client\main.cpp(73,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Barebones_Client.vcxproj -> D:\C++ Projects\GDNETWK-MP\BarebonesClient\x64\Debug\Barebones_Client.exe

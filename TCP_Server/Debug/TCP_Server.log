@@ -1,2 +1,6 @@
 ﻿  TCP_server.c
-  TCP_Server.vcxproj -> C:\Users\Admin\source\repos\TCP_Server\Debug\TCP_Server.exe
+D:\C++ Projects\GDNETWK-MP\TCP_Server\TCP_server.c(113,85): warning C4133: 'function': incompatible types - from 'SOCKET *' to 'sockaddr *'
+D:\C++ Projects\GDNETWK-MP\TCP_Server\TCP_server.c(124,69): warning C4133: 'function': incompatible types - from 'SOCKET *' to 'const sockaddr *'
+D:\C++ Projects\GDNETWK-MP\TCP_Server\TCP_server.c(32,10): warning C4101: 'message': unreferenced local variable
+D:\C++ Projects\GDNETWK-MP\TCP_Server\TCP_server.c(29,9): warning C4101: 'iSendResult': unreferenced local variable
+  TCP_Server.vcxproj -> D:\C++ Projects\GDNETWK-MP\TCP_Server\Debug\TCP_Server.exe
